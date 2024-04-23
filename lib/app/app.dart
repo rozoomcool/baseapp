@@ -1,4 +1,5 @@
 import 'package:baseapp/domain/bloc/auth_bloc/auth_cubit.dart';
+import 'package:baseapp/domain/bloc/auth_bloc/auth_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,7 +19,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [BlocProvider(create: (context) => AuthCubit())],
-      child: BlocBuilder<AuthCubit, String>(
+      child: BlocBuilder<AuthCubit, AuthState>(
         builder: (context, state) {
           AppRouter appRouter = AppRouter(authState: state);
 
