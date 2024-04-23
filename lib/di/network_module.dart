@@ -14,23 +14,26 @@ Dio configureDio(AuthSharedRepository authSharedRepository) {
 
   Dio dio = Dio(options);
 
-  dio.interceptors.add(LogInterceptors());
-  dio.interceptors.add(InterceptorsWrapper(onRequest: (options, handler) async {
-    options.headers["Authorization"] =
-        "Bearer ${authSharedRepository.getAccessToken()}";
-    return handler.next(options);
-  }, onError: (options, handler) async {
-    if (options.response?.statusCode == 403) {
-      final response = await dio.post("refresh", data: {
-        "refreshRequest": {"refresh": authSharedRepository.getRefreshToken()}
-      });
-      authSharedRepository.setTokens(
-          response.data["access"], response.data["refresh"]);
-      var newOptions = options.requestOptions;
-      newOptions.data["Authorization"] = authSharedRepository.getAccessToken();
-      return handler.resolve(await dio.fetch(newOptions));
-    }
-  }));
+  // dio.interceptors.add(LogInterceptors());
+  // dio.interceptors.add(InterceptorsWrapper(onRequest: (options, handler) async {
+  //   options.headers["Authorization"] =
+  //       "Bearer ${authSharedRepository.getAccessToken()}";
+  //   return handler.next(options);
+  // }, onError: (options, handler) async {
+  //   if (options.response?.statusCode == 403) {
+  //     final response = await dio.post("auth/refresh", data: {
+  //       "refreshRequest": {"refresh": authSharedRepository.getRefreshToken()}
+  //     });
+  //     if (response.statusCode == 200) {
+  //       authSharedRepository.setTokens(
+  //           response.data["access"], response.data["refresh"]);
+  //       var newOptions = options.requestOptions;
+  //       newOptions.data["Authorization"] =
+  //           authSharedRepository.getAccessToken();
+  //       return handler.resolve(await dio.fetch(newOptions));
+  //     }
+  //   }
+  // }));
 
   return dio;
 }
