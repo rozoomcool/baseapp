@@ -18,7 +18,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [BlocProvider(create: (context) => AuthCubit())],
+      providers: [BlocProvider(create: (context) => AuthCubit()..init())],
       child: BlocBuilder<AuthCubit, AuthState>(
         builder: (context, state) {
           AppRouter appRouter = AppRouter(authState: state);

@@ -19,12 +19,19 @@ class AuthCubit extends Cubit<AuthState> {
   final _scaffoldUtils = GetIt.I<CustomScaffoldUtils>();
   final _dio = GetIt.I<Dio>();
 
+  init() {
+    if(_authSharedRepository.getAccessToken().isNotEmpty && _authSharedRepository.getAccessToken() != "") {
+      emit(AuthenticatedAuthState());
+    }
+  }
+
   Future<void> signIn(UserDto user) async {
     try {
       var response = await _dio.post("http://192.168.1.134/auth/login",
           data: user.toJson());
       if (response.statusCode == 200) {
         var tokens = TokensDto.fromJson(response.data);
+        debugPrint(tokens.toString());
         _authSharedRepository.setTokens(tokens.access, tokens.refresh);
         _scaffoldUtils.showSnack("Авторизация успешна");
         emit(AuthenticatedAuthState());

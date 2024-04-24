@@ -17,7 +17,7 @@ void main() async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   final AuthSharedRepository authSharedRepository = AuthSharedRepository(prefs);
   GetIt.I.registerFactory(() => prefs);
-  GetIt.I.registerFactory(() => authSharedRepository);
+  GetIt.I.registerSingleton(authSharedRepository);
   GetIt.I.registerFactory(() => configureDio(authSharedRepository));
   GetIt.I.registerSingleton<CustomScaffoldUtils>(CustomScaffoldUtils());
 

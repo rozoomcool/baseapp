@@ -12,7 +12,7 @@ class CustomScaffoldUtils {
   void showSnack(text) {
     _key.currentState?.removeCurrentSnackBar();
     _key.currentState?.showSnackBar(
-        SnackBar(behavior: SnackBarBehavior.floating, content: Text(text)));
+        SnackBar(behavior: SnackBarBehavior.floating, content: Text(text), backgroundColor: Colors.white70,));
   }
 
   void showErrorSnack(text) {
