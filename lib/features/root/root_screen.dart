@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:baseapp/features/settings/settings_screen.dart';
 import 'package:baseapp/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,6 +21,7 @@ class RootScreen extends StatelessWidget {
       routes: const [
         HomeRoute(),
         ChatRoute(),
+        // SettingsRoute(),
         SettingsRoute(),
       ],
       appBarBuilder: (context, tabsRouter) => AppBar(
@@ -48,14 +50,14 @@ class RootScreen extends StatelessWidget {
       transitionBuilder: (context, child, animation) =>
           TransitionsBuilders.slideLeftWithFade(
               context, animation, animation, child),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
-        label: const FaIcon(FontAwesomeIcons.locationDot),
-        shape: const BeveledRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.elliptical(16, 16))),
-      ),
+      // floatingActionButton: FloatingActionButton.extended(
+      //   onPressed: () {},
+      //   label: const FaIcon(FontAwesomeIcons.locationDot),
+      //   shape: const BeveledRectangleBorder(
+      //       borderRadius: BorderRadius.all(Radius.elliptical(16, 16))),
+      // ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBuilder: (_, tabsRouter) {
+      bottomNavigationBuilder: (context, tabsRouter) {
         return BottomNavigationBar(
           currentIndex: tabsRouter.activeIndex,
           onTap: tabsRouter.setActiveIndex,
@@ -65,10 +67,13 @@ class RootScreen extends StatelessWidget {
             BottomNavigationBarItem(
                 label: 'CHAT', icon: FaIcon(FontAwesomeIcons.message)),
             BottomNavigationBarItem(
-                label: 'SETTINGS', icon: FaIcon(FontAwesomeIcons.gear))
+                label: 'DASH', icon: FaIcon(FontAwesomeIcons.chessBoard)),
+            // BottomNavigationBarItem(
+            //     label: 'SETTINGS', icon: FaIcon(FontAwesomeIcons.gear)),
           ],
         );
       },
     );
   }
 }
+

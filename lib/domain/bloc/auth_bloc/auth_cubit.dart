@@ -27,11 +27,12 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> signIn(UserDto user) async {
     try {
-      var response = await _dio.post("http://192.168.1.134/auth/login",
+      debugPrint(_dio.options.baseUrl);
+      var response = await _dio.post("/auth/login",
           data: user.toJson());
+      debugPrint(response.requestOptions.path);
       if (response.statusCode == 200) {
         var tokens = TokensDto.fromJson(response.data);
-        debugPrint(tokens.toString());
         _authSharedRepository.setTokens(tokens.access, tokens.refresh);
         _scaffoldUtils.showSnack("Авторизация успешна");
         emit(AuthenticatedAuthState());
@@ -40,14 +41,16 @@ class AuthCubit extends Cubit<AuthState> {
             .showErrorSnack("Произошла ошибка: ${response.statusCode}");
       }
     } catch (e) {
+      debugPrint("ERROR SIGN_IN: $e");
       _scaffoldUtils.showErrorSnack("Произошла ошибка авторизации");
     }
   }
 
   void signUp(UserDto user) async {
     try {
-      var response = await _dio.post("http://192.168.1.134/auth/register",
+      var response = await _dio.post("/auth/register",
           data: user.toJson());
+      debugPrint(response.toString());
       if (response.statusCode == 201) {
         var tokens = TokensDto.fromJson(response.data);
         _authSharedRepository.setTokens(tokens.access, tokens.refresh);

@@ -7,6 +7,7 @@ import 'package:baseapp/features/settings/settings_screen.dart';
 import 'package:baseapp/router/auth_route_guard.dart';
 
 import '../features/auth/auth_screen.dart';
+import '../features/dash/dash_screen.dart';
 import '../features/home/home_screen.dart';
 
 part 'app_router.gr.dart';
@@ -28,6 +29,7 @@ class AppRouter extends _$AppRouter {
         RedirectRoute(path: '', redirectTo: 'home'),
         AutoRoute(path: 'home', page: HomeRoute.page),
         AutoRoute(path: 'chat', page: ChatRoute.page),
+        AutoRoute(path: 'dash', page: DashRoute.page),
         AutoRoute(path: 'settings', page: SettingsRoute.page),
       ],
     ),
