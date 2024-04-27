@@ -9,6 +9,7 @@ import 'package:baseapp/router/auth_route_guard.dart';
 import '../features/auth/auth_screen.dart';
 import '../features/dash/dash_screen.dart';
 import '../features/home/home_screen.dart';
+import '../features/maps/maps_screen.dart';
 
 part 'app_router.gr.dart';
 
@@ -36,6 +37,10 @@ class AppRouter extends _$AppRouter {
     AutoRoute(
       path: '/auth',
       page: AuthRoute.page
+    ),
+    AutoRoute(
+        path: '/maps',
+        page: MapsRoute.page
     )
   ];
 }

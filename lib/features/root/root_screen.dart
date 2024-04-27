@@ -21,8 +21,8 @@ class RootScreen extends StatelessWidget {
       routes: const [
         HomeRoute(),
         ChatRoute(),
-        // SettingsRoute(),
         SettingsRoute(),
+        // DashRoute(),
       ],
       appBarBuilder: (context, tabsRouter) => AppBar(
         title: const Text("DekIT"),
@@ -50,12 +50,14 @@ class RootScreen extends StatelessWidget {
       transitionBuilder: (context, child, animation) =>
           TransitionsBuilders.slideLeftWithFade(
               context, animation, animation, child),
-      // floatingActionButton: FloatingActionButton.extended(
-      //   onPressed: () {},
-      //   label: const FaIcon(FontAwesomeIcons.locationDot),
-      //   shape: const BeveledRectangleBorder(
-      //       borderRadius: BorderRadius.all(Radius.elliptical(16, 16))),
-      // ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          context.pushRoute(const MapsRoute());
+        },
+        label: const FaIcon(FontAwesomeIcons.locationDot),
+        shape: const BeveledRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.elliptical(16, 16))),
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBuilder: (context, tabsRouter) {
         return BottomNavigationBar(
@@ -76,4 +78,3 @@ class RootScreen extends StatelessWidget {
     );
   }
 }
-
