@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:baseapp/features/root/scaffold_content.dart';
 import 'package:baseapp/features/settings/settings_screen.dart';
 import 'package:baseapp/router/app_router.dart';
 import 'package:flutter/material.dart';
@@ -25,42 +26,24 @@ class RootScreen extends StatelessWidget {
         DashRoute(),
         SettingsRoute(),
       ],
-      appBarBuilder: (context, tabsRouter) => AppBar(
-        title: const Text("ITAbrek"),
-        leading: IconButton(
-          onPressed: () {
-            context.read<AuthCubit>().logOut();
-          },
-          icon: const Icon(Iconsax.user),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Iconsax.add),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Iconsax.search_normal),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Iconsax.notification),
-          ),
-        ],
-      ),
+      appBarBuilder: (context, tabsRouter) {
+        return AppBar(
+          title: const Text("ITAbrek"),
+          actions: actions[tabsRouter.current.name],
+        );
+      },
       transitionBuilder: (context, child, animation) =>
           TransitionsBuilders.slideLeftWithFade(
               context, animation, animation, child),
-      // floatingActionButton: FloatingActionButton.extended(
-      //   onPressed: () {
-      //     context.pushRoute(const MapsRoute());
-      //   },
-      //   label: const FaIcon(FontAwesomeIcons.locationDot),
-      //   // shape: const BeveledRectangleBorder(
-      //   //     borderRadius: BorderRadius.all(Radius.elliptical(54, 5))),
-      // ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          context.pushRoute(const MapsRoute());
+        },
+        label: const FaIcon(FontAwesomeIcons.locationDot),
+      ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBuilder: (context, tabsRouter) {
+        print(":: ${tabsRouter.current.name}");
         return BottomNavigationBar(
           elevation: 4,
           currentIndex: tabsRouter.activeIndex,
@@ -68,20 +51,15 @@ class RootScreen extends StatelessWidget {
           selectedItemColor: Colors.black87,
           unselectedItemColor: Colors.black54,
           items: const [
-            BottomNavigationBarItem(label: 'HOME', icon: Icon(Iconsax.home)),
-            BottomNavigationBarItem(label: 'CHAT', icon: Icon(Iconsax.message)),
+            BottomNavigationBarItem(label: 'Главная', icon: Icon(Iconsax.home)),
+            BottomNavigationBarItem(label: 'Мессенджер', icon: Icon(Iconsax.message)),
             BottomNavigationBarItem(
-                label: 'DASH', icon: Icon(Iconsax.task_square)),
+                label: 'Задачи', icon: Icon(Iconsax.task_square)),
             BottomNavigationBarItem(
-                label: 'SETTINGS', icon: Icon(Iconsax.setting)),
+                label: 'Профиль', icon: Icon(Iconsax.setting)),
           ],
         );
       },
     );
   }
 }
-
-
-
-
-
