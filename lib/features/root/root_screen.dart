@@ -43,7 +43,6 @@ class RootScreen extends StatelessWidget {
       ),
       // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBuilder: (context, tabsRouter) {
-        print(":: ${tabsRouter.current.name}");
         return BottomNavigationBar(
           elevation: 4,
           currentIndex: tabsRouter.activeIndex,
