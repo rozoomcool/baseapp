@@ -1,4 +1,6 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:baseapp/features/chat_room/chat_room_screen.dart';
+import 'package:baseapp/router/app_router.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage()
@@ -21,6 +23,10 @@ class _ChatScreenState extends State<ChatScreen> {
             title: Text("List title: $index"),
             subtitle: const Text("subtitle"),
             trailing: const Badge(),
+            onTap: () {
+              // context.pushRoute();
+              AutoRouter.of(context).push(ChatRoomRoute(username: index.toString()));
+            },
           );
         });
   }
