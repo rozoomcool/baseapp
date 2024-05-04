@@ -30,7 +30,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
     super.initState();
     head = {
       "Authorization":
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsImlkIjo0LCJlbWFpbCI6InJvem9vbWNvb2xAbWFpbC5jb20iLCJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiVVNFUiJ9XSwic3ViIjoicm96b29tY29vbCIsImlhdCI6MTcxNDc4MTU5NCwiZXhwIjoxNzE2MjIxNTk0fQ.tjLpa-Zv2QIiWQmdyQ98FxV8A1GQ8UyG4HC-oglCPn0"
+      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsImlkIjo0LCJlbWFpbCI6InJvem9vbWNvb2xAbWFpbC5jb20iLCJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiVVNFUiJ9XSwic3ViIjoicm96b29tY29vbCIsImlhdCI6MTcxNDg1OTU1NCwiZXhwIjoxNzE2Mjk5NTU0fQ.Ot5m3GgQqHfiR7boevy8aOgPdqavC8rkqwNBdF5ovOs"
     };
     client = StompClient(
         config: StompConfig(
@@ -135,8 +135,12 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                       onPressed: () {
                         client.send(
                           headers: head,
-                            destination: "/app/private/rozoomcool",
-                            body: json.encode({"message": "programming"}));
+                            destination: "/app/private",
+                            body: json.encode({
+                              "senderName": "rozoomcool",
+                              "recipientName": "rozoomcool1",
+                              "content": "programming"
+                            }));
                       },
                       icon: const Icon(Iconsax.airplane)),
                 )
