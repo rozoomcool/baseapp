@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:baseapp/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -22,31 +23,34 @@ class ChatRoomScreen extends StatefulWidget {
 class _ChatRoomScreenState extends State<ChatRoomScreen> {
   late StompClient client;
   List<String> texts = List.empty(growable: true);
+  late Map<String, String> head;
 
   @override
   void initState() {
     super.initState();
-    Map<String, String> head = {
+    head = {
       "Authorization":
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsImlkIjoxLCJlbWFpbCI6ImVtMWFpbDFAbWFpbC5jb20iLCJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiVVNFUiJ9XSwic3ViIjoidXNlMXIxMSIsImlhdCI6MTcxNDU5NzI0MiwiZXhwIjoxNzE0NTk4NjgyfQ.pvG9ZvOkiNdfImAwQcGBqlIJj4wlLQAbouQnbd3IXxE"
+      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsImlkIjo0LCJlbWFpbCI6InJvem9vbWNvb2xAbWFpbC5jb20iLCJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiVVNFUiJ9XSwic3ViIjoicm96b29tY29vbCIsImlhdCI6MTcxNDc4MTU5NCwiZXhwIjoxNzE2MjIxNTk0fQ.tjLpa-Zv2QIiWQmdyQ98FxV8A1GQ8UyG4HC-oglCPn0"
     };
     client = StompClient(
         config: StompConfig(
             stompConnectHeaders: head,
-            url: 'ws://192.168.1.134/ws',
+            webSocketConnectHeaders: head,
+            url: 'ws://$baseUrl/ws',
             onConnect: (frame) {
               print(frame.toString());
               print("CONNECTED");
             },
             onStompError: (frame) {
-              print("ERROR CONNECTED");
+              print("ERROR CONNECTED: ${frame.headers}");
             }));
     client.activate();
     Future.delayed(Duration(seconds: 2), () {
       client.subscribe(
           headers: head,
-          destination: "/topic/greetings",
+          destination: "/user/queue/private",
           callback: (frame) {
+            print('Received: ' + frame.body!! ?? "");
             setState(() => texts.add(frame.body ?? ""));
           });
     });
@@ -130,7 +134,8 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                   child: IconButton.filledTonal(
                       onPressed: () {
                         client.send(
-                            destination: "/app/hello",
+                          headers: head,
+                            destination: "/app/private/rozoomcool",
                             body: json.encode({"message": "programming"}));
                       },
                       icon: const Icon(Iconsax.airplane)),

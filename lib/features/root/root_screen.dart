@@ -29,7 +29,15 @@ class RootScreen extends StatelessWidget {
       appBarBuilder: (context, tabsRouter) {
         return AppBar(
           title: const Text("ITAbrek"),
-          actions: actions[tabsRouter.current.name],
+          actions: [
+            IconButton(
+              onPressed: () {
+                context.read<AuthCubit>().logOut();
+              },
+              icon: const Icon(Iconsax.search_normal),
+            ),
+            ...?actions[tabsRouter.current.name]?.map((e) => e)
+          ],
         );
       },
       transitionBuilder: (context, child, animation) =>

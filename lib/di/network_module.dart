@@ -1,13 +1,14 @@
 import 'dart:convert';
 
 import 'package:baseapp/domain/repository/shared/auth_shared_repository.dart';
+import 'package:baseapp/utils/constants.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 Dio configureDio(AuthSharedRepository authSharedRepository) {
 
   final options = BaseOptions(
-    baseUrl: 'http://192.168.1.134',
+    baseUrl: 'http://$baseUrl',
     headers: {"Accept": "application/json"},
     connectTimeout: const Duration(seconds: 5),
     receiveTimeout: const Duration(seconds: 3),
