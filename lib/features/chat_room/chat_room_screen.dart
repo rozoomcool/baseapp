@@ -30,7 +30,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
     super.initState();
     head = {
       "Authorization":
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsImlkIjo0LCJlbWFpbCI6InJvem9vbWNvb2xAbWFpbC5jb20iLCJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiVVNFUiJ9XSwic3ViIjoicm96b29tY29vbCIsImlhdCI6MTcxNDg1OTU1NCwiZXhwIjoxNzE2Mjk5NTU0fQ.Ot5m3GgQqHfiR7boevy8aOgPdqavC8rkqwNBdF5ovOs"
+      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsImlkIjo1LCJlbWFpbCI6InJvem9vbWNvb2wxQG1haWwuY29tIiwiYXV0aG9yaXRpZXMiOlt7ImF1dGhvcml0eSI6IlVTRVIifV0sInN1YiI6InJvem9vbWNvb2wxIiwiaWF0IjoxNzE0OTExNDM1LCJleHAiOjE3MTYzNTE0MzV9.oah7jJsWhyz-TGKAYD50RjCvrAdIB4uU2kloVZny2IE"
     };
     client = StompClient(
         config: StompConfig(
@@ -49,6 +49,13 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
       client.subscribe(
           headers: head,
           destination: "/user/queue/private",
+          callback: (frame) {
+            print('Received: ' + frame.body!! ?? "");
+            setState(() => texts.add(frame.body ?? ""));
+          });
+      client.subscribe(
+          headers: head,
+          destination: "/topic/private-user",
           callback: (frame) {
             print('Received: ' + frame.body!! ?? "");
             setState(() => texts.add(frame.body ?? ""));
@@ -94,10 +101,15 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                   height: 28,
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(16.0)),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(2.0),
+                        topRight: Radius.circular(16.0),
+                        bottomLeft: Radius.circular(16.0),
+                        bottomRight: Radius.circular(16.0),
+                    ),
                     color: Colors.red,
                   ),
-                  child: Text("message"),
+                  child: const Text("message"),
                 ),
                 const SizedBox(
                   height: 64,
@@ -137,8 +149,8 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                           headers: head,
                             destination: "/app/private",
                             body: json.encode({
-                              "senderName": "rozoomcool",
-                              "recipientName": "rozoomcool1",
+                              "senderName": "rozoomcool1",
+                              "recipientName": "rozoomcool",
                               "content": "programming"
                             }));
                       },

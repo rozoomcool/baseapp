@@ -59,7 +59,7 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
               Expanded(
                   flex: 1,
                   child: Text(
-                    "DekIT",
+                    "IT_ABREK",
                     style: Theme.of(context).textTheme.displayLarge,
                   )),
               Expanded(
