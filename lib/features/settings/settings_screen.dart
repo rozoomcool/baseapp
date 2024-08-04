@@ -1,5 +1,11 @@
+import 'dart:convert';
+
 import 'package:auto_route/auto_route.dart';
+import 'package:baseapp/domain/bloc/user_cubit/user_cubit.dart';
+import 'package:baseapp/domain/model/user/user.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:stomp_dart_client/stomp_dart_client.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:web_socket_channel/status.dart' as status;
@@ -13,7 +19,6 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-
   @override
   void initState() {
     super.initState();
@@ -34,6 +39,30 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Text('kjgkfg');
+    return BlocBuilder<UserCubit, User?>(builder: (context, state) {
+      return SafeArea(
+          child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 24,
+            ),
+            CircleAvatar(
+              radius: 62,
+              child: state != null && state.avatar != null
+                  ? Image.memory(base64Decode(state.avatar.toString()))
+                  : const Icon(Iconsax.camera, size: 36,),
+            ),
+            SizedBox(
+              height: 24,
+            ),
+            Text(state?.username ?? "...")
+          ],
+        ),
+      ));
+    });
   }
 }

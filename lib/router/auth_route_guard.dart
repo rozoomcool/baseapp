@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:baseapp/domain/bloc/auth_bloc/auth_cubit.dart';
 import 'package:baseapp/domain/bloc/auth_bloc/auth_state.dart';
 import 'package:baseapp/router/app_router.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,7 +20,6 @@ class AuthGuard extends AutoRouteGuard {
     //
     //   var prefs = GetIt.I<SharedPreferences>();
     //   // String authState = prefs.getString("auth") ?? "";
-
     if (authState is! UnauthorizedAuthState && authState is! UnknownAuthState) {
       resolver.next();
     } else {
