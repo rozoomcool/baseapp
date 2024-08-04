@@ -21,52 +21,16 @@ class ChatRoomScreen extends StatefulWidget {
 }
 
 class _ChatRoomScreenState extends State<ChatRoomScreen> {
-  late StompClient client;
-  List<String> texts = List.empty(growable: true);
-  late Map<String, String> head;
 
   @override
   void initState() {
     super.initState();
-    head = {
-      "Authorization":
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiVVNFUiIsImlkIjo1LCJlbWFpbCI6InJvem9vbWNvb2wxQG1haWwuY29tIiwiYXV0aG9yaXRpZXMiOlt7ImF1dGhvcml0eSI6IlVTRVIifV0sInN1YiI6InJvem9vbWNvb2wxIiwiaWF0IjoxNzE0OTExNDM1LCJleHAiOjE3MTYzNTE0MzV9.oah7jJsWhyz-TGKAYD50RjCvrAdIB4uU2kloVZny2IE"
-    };
-    client = StompClient(
-        config: StompConfig(
-            stompConnectHeaders: head,
-            webSocketConnectHeaders: head,
-            url: 'ws://$baseUrl/ws',
-            onConnect: (frame) {
-              print(frame.toString());
-              print("CONNECTED");
-            },
-            onStompError: (frame) {
-              print("ERROR CONNECTED: ${frame.headers}");
-            }));
-    client.activate();
-    Future.delayed(Duration(seconds: 2), () {
-      client.subscribe(
-          headers: head,
-          destination: "/user/queue/private",
-          callback: (frame) {
-            print('Received: ' + frame.body!! ?? "");
-            setState(() => texts.add(frame.body ?? ""));
-          });
-      client.subscribe(
-          headers: head,
-          destination: "/topic/private-user",
-          callback: (frame) {
-            print('Received: ' + frame.body!! ?? "");
-            setState(() => texts.add(frame.body ?? ""));
-          });
-    });
+    
   }
 
   @override
   void dispose() {
     super.dispose();
-    client.deactivate();
   }
 
   @override
@@ -95,7 +59,6 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                ...texts.reversed.map((element) => Text(element)),
                 const Text("Hello"),
                 Container(
                   height: 28,
@@ -145,14 +108,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                   flex: 1,
                   child: IconButton.filledTonal(
                       onPressed: () {
-                        client.send(
-                          headers: head,
-                            destination: "/app/private",
-                            body: json.encode({
-                              "senderName": "rozoomcool1",
-                              "recipientName": "rozoomcool",
-                              "content": "programming"
-                            }));
+
                       },
                       icon: const Icon(Iconsax.airplane)),
                 )

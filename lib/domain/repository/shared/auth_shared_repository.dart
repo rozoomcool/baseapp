@@ -15,6 +15,14 @@ class AuthSharedRepository {
     _sharedPreferences.remove("refresh");
   }
 
+  void setUsername(String username) {
+    _sharedPreferences.setString("username", username);
+  }
+
+  String? getUsername() {
+    _sharedPreferences.getString("username");
+  }
+
   String getAccessToken() {
     return _sharedPreferences.getString("access") ?? "";
   }

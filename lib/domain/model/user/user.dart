@@ -11,6 +11,7 @@ class User with _$User {
     String? password,
     Role? role,
     String? avatar,
+    String? about,
     String? firstname,
     String? lastname,
     String? surname,

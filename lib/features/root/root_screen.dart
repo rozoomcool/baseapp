@@ -1,7 +1,9 @@
 import 'dart:ui';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:baseapp/domain/bloc/chat_cubit/chat_cubit.dart';
 import 'package:baseapp/domain/bloc/user_cubit/user_cubit.dart';
+import 'package:baseapp/domain/service/websocket_service.dart';
 import 'package:baseapp/features/root/scaffold_content.dart';
 import 'package:baseapp/features/settings/settings_screen.dart';
 import 'package:baseapp/router/app_router.dart';
@@ -22,7 +24,11 @@ class RootScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => UserCubit()..init())
+        BlocProvider(create: (context) => UserCubit()..init()),
+        BlocProvider(
+            create: (context) => ChatCubit(SocketService())
+              ..connect(
+                  GetIt.I<SharedPreferences>().getString("username") ?? "")),
       ],
       child: AutoTabsScaffold(
         routes: const [
@@ -42,7 +48,7 @@ class RootScreen extends StatelessWidget {
                 },
                 icon: const Icon(Iconsax.logout),
               ),
-              ...?actions[tabsRouter.current.name]?.map((e) => e)
+              // ...?actions[tabsRouter.current.name]?.map((e) => e)
             ],
           );
         },
@@ -63,12 +69,17 @@ class RootScreen extends StatelessWidget {
             onTap: tabsRouter.setActiveIndex,
             selectedItemColor: Colors.black87,
             unselectedItemColor: Colors.black54,
-            items: const [
-              BottomNavigationBarItem(label: 'Главная', icon: Icon(Iconsax.home)),
-              BottomNavigationBarItem(label: 'Мессенджер', icon: Icon(Iconsax.message)),
+            items: [
+              const BottomNavigationBarItem(
+                  label: 'Главная', icon: Icon(Iconsax.home)),
               BottomNavigationBarItem(
+                  label: 'Репетиторы',
+                  icon: context.watch<ChatCubit>().state.messages.isNotEmpty
+                      ? const Badge(child: Icon(Iconsax.message))
+                      : const Icon(Iconsax.message)),
+              const BottomNavigationBarItem(
                   label: 'Задачи', icon: Icon(Iconsax.task_square)),
-              BottomNavigationBarItem(
+              const BottomNavigationBarItem(
                   label: 'Профиль', icon: Icon(Iconsax.user)),
             ],
           );

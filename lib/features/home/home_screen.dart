@@ -74,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               children: [
                                 Expanded(flex: 3, child: Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: Container(color: Colors.purple,),
+                                  child: Container(decoration: BoxDecoration(color: Colors.purple, borderRadius: BorderRadius.circular(24)),),
                                 )),
                                 Expanded(flex: 1, child: Text(course.title),)
                               ],

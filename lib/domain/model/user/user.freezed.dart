@@ -25,6 +25,7 @@ mixin _$User {
   String? get password => throw _privateConstructorUsedError;
   Role? get role => throw _privateConstructorUsedError;
   String? get avatar => throw _privateConstructorUsedError;
+  String? get about => throw _privateConstructorUsedError;
   String? get firstname => throw _privateConstructorUsedError;
   String? get lastname => throw _privateConstructorUsedError;
   String? get surname => throw _privateConstructorUsedError;
@@ -51,6 +52,7 @@ abstract class $UserCopyWith<$Res> {
       String? password,
       Role? role,
       String? avatar,
+      String? about,
       String? firstname,
       String? lastname,
       String? surname,
@@ -80,6 +82,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? password = freezed,
     Object? role = freezed,
     Object? avatar = freezed,
+    Object? about = freezed,
     Object? firstname = freezed,
     Object? lastname = freezed,
     Object? surname = freezed,
@@ -110,6 +113,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
       avatar: freezed == avatar
           ? _value.avatar
           : avatar // ignore: cast_nullable_to_non_nullable
+              as String?,
+      about: freezed == about
+          ? _value.about
+          : about // ignore: cast_nullable_to_non_nullable
               as String?,
       firstname: freezed == firstname
           ? _value.firstname
@@ -164,6 +171,7 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
       String? password,
       Role? role,
       String? avatar,
+      String? about,
       String? firstname,
       String? lastname,
       String? surname,
@@ -190,6 +198,7 @@ class __$$UserImplCopyWithImpl<$Res>
     Object? password = freezed,
     Object? role = freezed,
     Object? avatar = freezed,
+    Object? about = freezed,
     Object? firstname = freezed,
     Object? lastname = freezed,
     Object? surname = freezed,
@@ -220,6 +229,10 @@ class __$$UserImplCopyWithImpl<$Res>
       avatar: freezed == avatar
           ? _value.avatar
           : avatar // ignore: cast_nullable_to_non_nullable
+              as String?,
+      about: freezed == about
+          ? _value.about
+          : about // ignore: cast_nullable_to_non_nullable
               as String?,
       firstname: freezed == firstname
           ? _value.firstname
@@ -270,6 +283,7 @@ class _$UserImpl implements _User {
       this.password,
       this.role,
       this.avatar,
+      this.about,
       this.firstname,
       this.lastname,
       this.surname,
@@ -294,6 +308,8 @@ class _$UserImpl implements _User {
   @override
   final String? avatar;
   @override
+  final String? about;
+  @override
   final String? firstname;
   @override
   final String? lastname;
@@ -314,7 +330,7 @@ class _$UserImpl implements _User {
 
   @override
   String toString() {
-    return 'User(id: $id, username: $username, password: $password, role: $role, avatar: $avatar, firstname: $firstname, lastname: $lastname, surname: $surname, createdAt: $createdAt, updatedAt: $updatedAt, isEnabled: $isEnabled, isAccountNonExpired: $isAccountNonExpired, isCredentialsNonExpired: $isCredentialsNonExpired, isAccountNonLocked: $isAccountNonLocked)';
+    return 'User(id: $id, username: $username, password: $password, role: $role, avatar: $avatar, about: $about, firstname: $firstname, lastname: $lastname, surname: $surname, createdAt: $createdAt, updatedAt: $updatedAt, isEnabled: $isEnabled, isAccountNonExpired: $isAccountNonExpired, isCredentialsNonExpired: $isCredentialsNonExpired, isAccountNonLocked: $isAccountNonLocked)';
   }
 
   @override
@@ -329,6 +345,7 @@ class _$UserImpl implements _User {
                 other.password == password) &&
             (identical(other.role, role) || other.role == role) &&
             (identical(other.avatar, avatar) || other.avatar == avatar) &&
+            (identical(other.about, about) || other.about == about) &&
             (identical(other.firstname, firstname) ||
                 other.firstname == firstname) &&
             (identical(other.lastname, lastname) ||
@@ -358,6 +375,7 @@ class _$UserImpl implements _User {
       password,
       role,
       avatar,
+      about,
       firstname,
       lastname,
       surname,
@@ -389,6 +407,7 @@ abstract class _User implements User {
       final String? password,
       final Role? role,
       final String? avatar,
+      final String? about,
       final String? firstname,
       final String? lastname,
       final String? surname,
@@ -411,6 +430,8 @@ abstract class _User implements User {
   Role? get role;
   @override
   String? get avatar;
+  @override
+  String? get about;
   @override
   String? get firstname;
   @override
