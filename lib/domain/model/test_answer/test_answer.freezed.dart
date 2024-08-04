@@ -22,6 +22,7 @@ TestAnswer _$TestAnswerFromJson(Map<String, dynamic> json) {
 mixin _$TestAnswer {
   int? get id => throw _privateConstructorUsedError;
   String get variant => throw _privateConstructorUsedError;
+  bool get isAnswer => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +36,7 @@ abstract class $TestAnswerCopyWith<$Res> {
           TestAnswer value, $Res Function(TestAnswer) then) =
       _$TestAnswerCopyWithImpl<$Res, TestAnswer>;
   @useResult
-  $Res call({int? id, String variant});
+  $Res call({int? id, String variant, bool isAnswer});
 }
 
 /// @nodoc
@@ -53,6 +54,7 @@ class _$TestAnswerCopyWithImpl<$Res, $Val extends TestAnswer>
   $Res call({
     Object? id = freezed,
     Object? variant = null,
+    Object? isAnswer = null,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -63,6 +65,10 @@ class _$TestAnswerCopyWithImpl<$Res, $Val extends TestAnswer>
           ? _value.variant
           : variant // ignore: cast_nullable_to_non_nullable
               as String,
+      isAnswer: null == isAnswer
+          ? _value.isAnswer
+          : isAnswer // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -75,7 +81,7 @@ abstract class _$$TestAnswerImplCopyWith<$Res>
       __$$TestAnswerImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int? id, String variant});
+  $Res call({int? id, String variant, bool isAnswer});
 }
 
 /// @nodoc
@@ -91,6 +97,7 @@ class __$$TestAnswerImplCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? variant = null,
+    Object? isAnswer = null,
   }) {
     return _then(_$TestAnswerImpl(
       id: freezed == id
@@ -101,6 +108,10 @@ class __$$TestAnswerImplCopyWithImpl<$Res>
           ? _value.variant
           : variant // ignore: cast_nullable_to_non_nullable
               as String,
+      isAnswer: null == isAnswer
+          ? _value.isAnswer
+          : isAnswer // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -108,7 +119,8 @@ class __$$TestAnswerImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$TestAnswerImpl implements _TestAnswer {
-  const _$TestAnswerImpl({this.id, required this.variant});
+  const _$TestAnswerImpl(
+      {this.id, required this.variant, required this.isAnswer});
 
   factory _$TestAnswerImpl.fromJson(Map<String, dynamic> json) =>
       _$$TestAnswerImplFromJson(json);
@@ -117,10 +129,12 @@ class _$TestAnswerImpl implements _TestAnswer {
   final int? id;
   @override
   final String variant;
+  @override
+  final bool isAnswer;
 
   @override
   String toString() {
-    return 'TestAnswer(id: $id, variant: $variant)';
+    return 'TestAnswer(id: $id, variant: $variant, isAnswer: $isAnswer)';
   }
 
   @override
@@ -129,12 +143,14 @@ class _$TestAnswerImpl implements _TestAnswer {
         (other.runtimeType == runtimeType &&
             other is _$TestAnswerImpl &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.variant, variant) || other.variant == variant));
+            (identical(other.variant, variant) || other.variant == variant) &&
+            (identical(other.isAnswer, isAnswer) ||
+                other.isAnswer == isAnswer));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, variant);
+  int get hashCode => Object.hash(runtimeType, id, variant, isAnswer);
 
   @JsonKey(ignore: true)
   @override
@@ -151,8 +167,10 @@ class _$TestAnswerImpl implements _TestAnswer {
 }
 
 abstract class _TestAnswer implements TestAnswer {
-  const factory _TestAnswer({final int? id, required final String variant}) =
-      _$TestAnswerImpl;
+  const factory _TestAnswer(
+      {final int? id,
+      required final String variant,
+      required final bool isAnswer}) = _$TestAnswerImpl;
 
   factory _TestAnswer.fromJson(Map<String, dynamic> json) =
       _$TestAnswerImpl.fromJson;
@@ -161,6 +179,8 @@ abstract class _TestAnswer implements TestAnswer {
   int? get id;
   @override
   String get variant;
+  @override
+  bool get isAnswer;
   @override
   @JsonKey(ignore: true)
   _$$TestAnswerImplCopyWith<_$TestAnswerImpl> get copyWith =>

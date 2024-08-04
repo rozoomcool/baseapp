@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'test_answer.freezed.dart';
@@ -7,7 +9,8 @@ part 'test_answer.g.dart';
 class TestAnswer with _$TestAnswer {
   const factory TestAnswer({
     int? id,
-    required String variant
+    required String variant,
+    required bool isAnswer
   }) = _TestAnswer;
 
   factory TestAnswer.fromJson(Map<String, Object?> json)

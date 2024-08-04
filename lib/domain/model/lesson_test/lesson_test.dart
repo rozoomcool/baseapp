@@ -9,7 +9,6 @@ class LessonTest with _$LessonTest {
   const factory LessonTest({
     int? id,
     required String question,
-    required int answerId,
     @Default([]) List<TestAnswer> variants
   }) = _LessonTest;
 

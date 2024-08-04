@@ -41,14 +41,8 @@ class UserCubit extends Cubit<User?> {
     
     debugPrint(oldUser.toString());
 
-    var response = await _dio.put("/user", data: {
-      {
-        "firstname": newUser.firstname,
-        "lastname": newUser.lastname,
-        "surname": newUser.surname,
-        "avatar": newUser.avatar
-      }
-    }, options: Options(headers: {
+    var response = await _dio.put("/user", data: oldUser.toJson(), options: Options(headers: {
+      "Content-Type": "application/json",
       "Authorization": "Bearer ${authSharedRepository.getAccessToken()}"
     }));
     if (response.statusCode == 200) {

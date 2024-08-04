@@ -11,7 +11,10 @@ class CoourseRepository {
 
 
   Future<List<Course>?> getAll() async {
-    var response = await _dio.get("/course");
+    var response = await _dio.get("/course", options: Options(headers: {
+      "Accept": "application/json",
+      "Authorization": "Bearer ${authSharedRepository.getAccessToken()}"
+    }));
     if (response.statusCode == 200) {
       return (response.data as List).map<Course>((el) => Course.fromJson(el)).toList();
     }
@@ -19,7 +22,10 @@ class CoourseRepository {
   }
 
   Future<Course?> getById(int id) async {
-    var response = await _dio.get("/course/${id}");
+    var response = await _dio.get("/course/${id}", options: Options(headers: {
+      "Accept": "application/json",
+      "Authorization": "Bearer ${authSharedRepository.getAccessToken()}"
+    }));
     if (response.statusCode == 200) {
       return Course.fromJson(response.data);
     }

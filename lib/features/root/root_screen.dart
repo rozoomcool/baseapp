@@ -42,7 +42,7 @@ class RootScreen extends StatelessWidget {
                 },
                 icon: const Icon(Iconsax.logout),
               ),
-              // ...?actions[tabsRouter.current.name]?.map((e) => e)
+              ...?actions[tabsRouter.current.name]?.map((e) => e)
             ],
           );
         },

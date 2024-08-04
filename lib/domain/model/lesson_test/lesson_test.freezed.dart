@@ -22,7 +22,6 @@ LessonTest _$LessonTestFromJson(Map<String, dynamic> json) {
 mixin _$LessonTest {
   int? get id => throw _privateConstructorUsedError;
   String get question => throw _privateConstructorUsedError;
-  int get answerId => throw _privateConstructorUsedError;
   List<TestAnswer> get variants => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -37,8 +36,7 @@ abstract class $LessonTestCopyWith<$Res> {
           LessonTest value, $Res Function(LessonTest) then) =
       _$LessonTestCopyWithImpl<$Res, LessonTest>;
   @useResult
-  $Res call(
-      {int? id, String question, int answerId, List<TestAnswer> variants});
+  $Res call({int? id, String question, List<TestAnswer> variants});
 }
 
 /// @nodoc
@@ -56,7 +54,6 @@ class _$LessonTestCopyWithImpl<$Res, $Val extends LessonTest>
   $Res call({
     Object? id = freezed,
     Object? question = null,
-    Object? answerId = null,
     Object? variants = null,
   }) {
     return _then(_value.copyWith(
@@ -68,10 +65,6 @@ class _$LessonTestCopyWithImpl<$Res, $Val extends LessonTest>
           ? _value.question
           : question // ignore: cast_nullable_to_non_nullable
               as String,
-      answerId: null == answerId
-          ? _value.answerId
-          : answerId // ignore: cast_nullable_to_non_nullable
-              as int,
       variants: null == variants
           ? _value.variants
           : variants // ignore: cast_nullable_to_non_nullable
@@ -88,8 +81,7 @@ abstract class _$$LessonTestImplCopyWith<$Res>
       __$$LessonTestImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {int? id, String question, int answerId, List<TestAnswer> variants});
+  $Res call({int? id, String question, List<TestAnswer> variants});
 }
 
 /// @nodoc
@@ -105,7 +97,6 @@ class __$$LessonTestImplCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? question = null,
-    Object? answerId = null,
     Object? variants = null,
   }) {
     return _then(_$LessonTestImpl(
@@ -117,10 +108,6 @@ class __$$LessonTestImplCopyWithImpl<$Res>
           ? _value.question
           : question // ignore: cast_nullable_to_non_nullable
               as String,
-      answerId: null == answerId
-          ? _value.answerId
-          : answerId // ignore: cast_nullable_to_non_nullable
-              as int,
       variants: null == variants
           ? _value._variants
           : variants // ignore: cast_nullable_to_non_nullable
@@ -135,7 +122,6 @@ class _$LessonTestImpl implements _LessonTest {
   const _$LessonTestImpl(
       {this.id,
       required this.question,
-      required this.answerId,
       final List<TestAnswer> variants = const []})
       : _variants = variants;
 
@@ -146,8 +132,6 @@ class _$LessonTestImpl implements _LessonTest {
   final int? id;
   @override
   final String question;
-  @override
-  final int answerId;
   final List<TestAnswer> _variants;
   @override
   @JsonKey()
@@ -159,7 +143,7 @@ class _$LessonTestImpl implements _LessonTest {
 
   @override
   String toString() {
-    return 'LessonTest(id: $id, question: $question, answerId: $answerId, variants: $variants)';
+    return 'LessonTest(id: $id, question: $question, variants: $variants)';
   }
 
   @override
@@ -170,14 +154,12 @@ class _$LessonTestImpl implements _LessonTest {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.question, question) ||
                 other.question == question) &&
-            (identical(other.answerId, answerId) ||
-                other.answerId == answerId) &&
             const DeepCollectionEquality().equals(other._variants, _variants));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, question, answerId,
+  int get hashCode => Object.hash(runtimeType, id, question,
       const DeepCollectionEquality().hash(_variants));
 
   @JsonKey(ignore: true)
@@ -198,7 +180,6 @@ abstract class _LessonTest implements LessonTest {
   const factory _LessonTest(
       {final int? id,
       required final String question,
-      required final int answerId,
       final List<TestAnswer> variants}) = _$LessonTestImpl;
 
   factory _LessonTest.fromJson(Map<String, dynamic> json) =
@@ -208,8 +189,6 @@ abstract class _LessonTest implements LessonTest {
   int? get id;
   @override
   String get question;
-  @override
-  int get answerId;
   @override
   List<TestAnswer> get variants;
   @override
