@@ -8,9 +8,9 @@ part of 'user.dart';
 
 _$UserImpl _$$UserImplFromJson(Map<String, dynamic> json) => _$UserImpl(
       id: (json['id'] as num?)?.toInt(),
-      username: json['username'] as String,
+      username: json['username'] as String?,
       password: json['password'] as String?,
-      role: $enumDecode(_$RoleEnumMap, json['role']),
+      role: $enumDecodeNullable(_$RoleEnumMap, json['role']),
       avatar: json['avatar'] as String?,
       firstname: json['firstname'] as String?,
       lastname: json['lastname'] as String?,
@@ -32,7 +32,7 @@ Map<String, dynamic> _$$UserImplToJson(_$UserImpl instance) =>
       'id': instance.id,
       'username': instance.username,
       'password': instance.password,
-      'role': _$RoleEnumMap[instance.role]!,
+      'role': _$RoleEnumMap[instance.role],
       'avatar': instance.avatar,
       'firstname': instance.firstname,
       'lastname': instance.lastname,

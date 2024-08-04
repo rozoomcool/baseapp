@@ -21,9 +21,9 @@ User _$UserFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$User {
   int? get id => throw _privateConstructorUsedError;
-  String get username => throw _privateConstructorUsedError;
+  String? get username => throw _privateConstructorUsedError;
   String? get password => throw _privateConstructorUsedError;
-  Role get role => throw _privateConstructorUsedError;
+  Role? get role => throw _privateConstructorUsedError;
   String? get avatar => throw _privateConstructorUsedError;
   String? get firstname => throw _privateConstructorUsedError;
   String? get lastname => throw _privateConstructorUsedError;
@@ -47,9 +47,9 @@ abstract class $UserCopyWith<$Res> {
   @useResult
   $Res call(
       {int? id,
-      String username,
+      String? username,
       String? password,
-      Role role,
+      Role? role,
       String? avatar,
       String? firstname,
       String? lastname,
@@ -76,9 +76,9 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
   @override
   $Res call({
     Object? id = freezed,
-    Object? username = null,
+    Object? username = freezed,
     Object? password = freezed,
-    Object? role = null,
+    Object? role = freezed,
     Object? avatar = freezed,
     Object? firstname = freezed,
     Object? lastname = freezed,
@@ -95,18 +95,18 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      username: null == username
+      username: freezed == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       password: freezed == password
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String?,
-      role: null == role
+      role: freezed == role
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
-              as Role,
+              as Role?,
       avatar: freezed == avatar
           ? _value.avatar
           : avatar // ignore: cast_nullable_to_non_nullable
@@ -160,9 +160,9 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
   @useResult
   $Res call(
       {int? id,
-      String username,
+      String? username,
       String? password,
-      Role role,
+      Role? role,
       String? avatar,
       String? firstname,
       String? lastname,
@@ -186,9 +186,9 @@ class __$$UserImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
-    Object? username = null,
+    Object? username = freezed,
     Object? password = freezed,
-    Object? role = null,
+    Object? role = freezed,
     Object? avatar = freezed,
     Object? firstname = freezed,
     Object? lastname = freezed,
@@ -205,18 +205,18 @@ class __$$UserImplCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      username: null == username
+      username: freezed == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       password: freezed == password
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String?,
-      role: null == role
+      role: freezed == role
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
-              as Role,
+              as Role?,
       avatar: freezed == avatar
           ? _value.avatar
           : avatar // ignore: cast_nullable_to_non_nullable
@@ -266,9 +266,9 @@ class __$$UserImplCopyWithImpl<$Res>
 class _$UserImpl implements _User {
   const _$UserImpl(
       {this.id,
-      required this.username,
-      required this.password,
-      required this.role,
+      this.username,
+      this.password,
+      this.role,
       this.avatar,
       this.firstname,
       this.lastname,
@@ -286,11 +286,11 @@ class _$UserImpl implements _User {
   @override
   final int? id;
   @override
-  final String username;
+  final String? username;
   @override
   final String? password;
   @override
-  final Role role;
+  final Role? role;
   @override
   final String? avatar;
   @override
@@ -385,9 +385,9 @@ class _$UserImpl implements _User {
 abstract class _User implements User {
   const factory _User(
       {final int? id,
-      required final String username,
-      required final String? password,
-      required final Role role,
+      final String? username,
+      final String? password,
+      final Role? role,
       final String? avatar,
       final String? firstname,
       final String? lastname,
@@ -404,11 +404,11 @@ abstract class _User implements User {
   @override
   int? get id;
   @override
-  String get username;
+  String? get username;
   @override
   String? get password;
   @override
-  Role get role;
+  Role? get role;
   @override
   String? get avatar;
   @override

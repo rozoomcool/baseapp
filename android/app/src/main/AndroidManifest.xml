@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30" />
 
     <application
+        android:requestLegacyExternalStorage="true"
         android:label="baseapp"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">

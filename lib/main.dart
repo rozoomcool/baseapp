@@ -18,7 +18,7 @@ void main() async {
   final AuthSharedRepository authSharedRepository = AuthSharedRepository(prefs);
   GetIt.I.registerFactory(() => prefs);
   GetIt.I.registerSingleton(authSharedRepository);
-  GetIt.I.registerFactory(() => configureDio(authSharedRepository));
+  GetIt.I.registerFactory(() => configureDio(authSharedRepository)..options.headers.addAll({"Authorization": "Bearer ${prefs.getString("access")}"}));
   GetIt.I.registerSingleton<CustomScaffoldUtils>(CustomScaffoldUtils());
 
   runApp(const MyApp());

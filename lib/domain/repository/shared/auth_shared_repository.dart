@@ -10,6 +10,11 @@ class AuthSharedRepository {
     _sharedPreferences.setString("refresh", refreshToken);
   }
 
+  void clear() {
+    _sharedPreferences.remove("access");
+    _sharedPreferences.remove("refresh");
+  }
+
   String getAccessToken() {
     return _sharedPreferences.getString("access") ?? "";
   }

@@ -34,7 +34,7 @@ class AuthCubit extends Cubit<AuthState> {
       if (response.statusCode == 200) {
         var tokens = JwtPayload.fromJson(response.data);
         _authSharedRepository.setTokens(tokens.access, tokens.refresh);
-        GetIt.I<Dio>().options.headers["Authorization"] = "Bearer ${tokens.access}";
+        GetIt.I<Dio>().options.headers.addAll({"Authorization": "Bearer ${tokens.access}"});
         _scaffoldUtils.showSnack("Авторизация успешна");
         emit(AuthenticatedAuthState());
       } else {
@@ -54,16 +54,14 @@ class AuthCubit extends Cubit<AuthState> {
           data: {
             "username": user.username,
             "password": user.password,
-            "role": user.role.name.toUpperCase()
+            "role": user.role!.name.toUpperCase()
           });
-      debugPrint(response.toString());
-      if (response.statusCode == 201) {
+      if (response.statusCode == 201 || response.statusCode == 200) {
         // var tokens = JwtPayload.fromJson(response.data);
         _scaffoldUtils.showSnack("Регистрация успешна");
         // emit(AuthenticatedAuthState());
       } else {
-        _scaffoldUtils
-            .showErrorSnack("Произошла ошибка: ${response.statusCode}");
+        _scaffoldUtils.showErrorSnack("Произошла ошибка: ${response.statusCode}");
       }
     } catch (e) {
       debugPrint(e.toString());
@@ -72,6 +70,7 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   void logOut() {
+    _authSharedRepository.clear();
     emit(UnauthorizedAuthState());
   }
 }

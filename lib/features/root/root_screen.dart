@@ -49,12 +49,12 @@ class RootScreen extends StatelessWidget {
         transitionBuilder: (context, child, animation) =>
             TransitionsBuilders.slideLeftWithFade(
                 context, animation, animation, child),
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {
-            context.pushRoute(const MapsRoute());
-          },
-          label: const FaIcon(FontAwesomeIcons.locationDot),
-        ),
+        // floatingActionButton: FloatingActionButton.extended(
+        //   onPressed: () {
+        //     context.pushRoute(const MapsRoute());
+        //   },
+        //   label: const FaIcon(FontAwesomeIcons.locationDot),
+        // ),
         // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBuilder: (context, tabsRouter) {
           return BottomNavigationBar(

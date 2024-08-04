@@ -16,13 +16,13 @@ Dio configureDio(AuthSharedRepository authSharedRepository) {
 
   Dio dio = Dio(options);
 
-  dio.interceptors.add(LogInterceptors());
-  dio.interceptors.add(InterceptorsWrapper(
-    onRequest: (options, handler) async {
-      options.headers["Authorization"] =
-          "Bearer ${authSharedRepository.getAccessToken()}";
-      return handler.next(options);
-    },
+  // dio.interceptors.add(LogInterceptors());
+  // dio.interceptors.add(InterceptorsWrapper(
+  //   onRequest: (options, handler) async {
+  //     options.headers["Authorization"] =
+  //         "Bearer ${authSharedRepository.getAccessToken()}";
+  //     return handler.next(options);
+  //   },
     // onError: (err, handler) async {
     //   var response = err.response;
     //   if (response != null && response.statusCode == 403) {
@@ -43,7 +43,7 @@ Dio configureDio(AuthSharedRepository authSharedRepository) {
 
     //   return handler.reject(err);
     // },
-  ));
+  // ));
 
   return dio;
 }

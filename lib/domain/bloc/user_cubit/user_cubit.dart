@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:baseapp/domain/model/user/user.dart';
 import 'package:baseapp/domain/repository/shared/auth_shared_repository.dart';
 import 'package:dio/dio.dart';
@@ -8,18 +10,49 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class UserCubit extends Cubit<User?> {
   UserCubit() : super(null);
-  
-  // final AuthSharedRepository authSharedRepository = AuthSharedRepository(GetIt.I<SharedPreferences>());
+
+  final AuthSharedRepository authSharedRepository = AuthSharedRepository(GetIt.I<SharedPreferences>());
   final Dio _dio = GetIt.I<Dio>();
 
-  void init() async {
-    var response = await _dio.get("/user");
-    debugPrint(response.toString());
+  void init() {
+    debugPrint(authSharedRepository.getAccessToken());
+    Future.sync(() => _dio.get("/user", options: Options(headers: {
+      "Accept": "application/json",
+      "Authorization": "Bearer ${authSharedRepository.getAccessToken()}"
+    }))).then((response) {
+      debugPrint(response.toString());
+      if (response.statusCode == 200) {
+        User user = User.fromJson(response.data);
+        emit(user);
+      } else {
+        emit(null);
+      }
+    });
+  }
+
+  void updateUser(User newUser) async {
+    if (state == null) return;
+    var oldUser = state!.copyWith(
+      avatar: newUser.avatar ?? state!.avatar,
+      firstname: newUser.firstname ?? state!.firstname,
+      lastname: newUser.lastname ?? state!.lastname,
+      surname: newUser.surname ?? state!.surname
+    );
+    
+    debugPrint(oldUser.toString());
+
+    var response = await _dio.put("/user", data: {
+      {
+        "firstname": newUser.firstname,
+        "lastname": newUser.lastname,
+        "surname": newUser.surname,
+        "avatar": newUser.avatar
+      }
+    }, options: Options(headers: {
+      "Authorization": "Bearer ${authSharedRepository.getAccessToken()}"
+    }));
     if (response.statusCode == 200) {
-      User user = User.fromJson(response.data);
-      emit(user);
-    } else {
-      emit(null);
+      emit(User.fromJson(response.data));
     }
   }
 

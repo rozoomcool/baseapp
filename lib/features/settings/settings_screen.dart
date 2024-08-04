@@ -5,10 +5,9 @@ import 'package:baseapp/domain/bloc/user_cubit/user_cubit.dart';
 import 'package:baseapp/domain/model/user/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:stomp_dart_client/stomp_dart_client.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
-import 'package:web_socket_channel/status.dart' as status;
+import 'package:image_picker/image_picker.dart';
 
 @RoutePage()
 class SettingsScreen extends StatefulWidget {
@@ -19,22 +18,24 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  ImagePicker imagePicker = ImagePicker();
+
   @override
   void initState() {
     super.initState();
-    initSock();
   }
 
-  void initSock() async {
-    final wsUrl = Uri.parse('ws://10.3.1.138/ws');
-    final channel = WebSocketChannel.connect(wsUrl);
-
-    await channel.ready;
-
-    channel.stream.listen((message) {
-      channel.sink.add('received!');
-      channel.sink.close(status.goingAway);
-    });
+  Future<String> getBase64EncodeImage() async {
+    var image = await imagePicker.pickImage(source: ImageSource.gallery);
+    var bytes = await image!.readAsBytes();
+    var compressed = await FlutterImageCompress.compressWithList(
+      minWidth: 300,
+      minHeight: 300,
+      bytes,
+      quality: 50,
+      rotate: 0,
+    );
+    return base64Encode(compressed);
   }
 
   @override
@@ -50,11 +51,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
             SizedBox(
               height: 24,
             ),
+            state != null && state.avatar != null ? Container(
+              width: 124,
+              height: 124,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(100),
+                image: DecorationImage(image: MemoryImage(base64Decode(state.avatar!),), fit: BoxFit.cover)
+              ),
+            ) :
             CircleAvatar(
               radius: 62,
-              child: state != null && state.avatar != null
-                  ? Image.memory(base64Decode(state.avatar.toString()))
-                  : const Icon(Iconsax.camera, size: 36,),
+              child: IconButton(
+                      onPressed: () async {
+                        context.read<UserCubit>().updateUser(
+                            User(avatar: (await getBase64EncodeImage())));
+                      },
+                      icon: const Icon(
+                        Iconsax.camera,
+                        size: 36,
+                      ),
+                    ),
             ),
             SizedBox(
               height: 24,
